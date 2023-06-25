@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+
+/* Navbar General Position
+-------------------------------------------------- */
+// To make the content after navbar fixed top placed right after the navbar
+.navbar.fixed-top {
+  & + * {
+    margin-top: 64px;
+    @include media-breakpoint-up(md) {
+      margin-top: 64px;
+    }
+  }
+}
+    
+// To make navbar static on the top on top of an object / cover
+.navbar.absolute-top {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+// Change state when navbar is scrolled
+.navbar-scroll {
+  background: $white;
+  box-shadow: $box-shadow;
+  transition: $transition-base;
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        color: rgba($body-color, .75);
+        &:hover, &:focus, &:active {
+          color: $body-color;
+        }
+      }
+      &.active {
+        .nav-link {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+/* Navbar Brand
+-------------------------------------------------- */
+.navbar-brand {
+  padding: .5rem 0;
+  margin-right: 0;
+  @include media-breakpoint-up(md) {
+    margin-right: $navbar-padding-x;
+  }
+  img {height: 30px;}
+}
+
+/* Navbar Toggler
+-------------------------------------------------- */
+.navbar-toggler {
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background-color: rgba(255,255,255,.8);
+    border-radius: 1px;
+    & + .icon-bar {
+      margin-top: 6px;
+    }
+  }
+}
+
+// Only use if ordering doesn't work, especially when navbar brand is centered
+.navbar-toggler-absolute {
+  position: absolute;
+  top: 1.1rem;
+  &.left {left: $navbar-padding-x;}
+  &.right {right: $navbar-padding-x;}
+}
+
+/* Navbar Collapse
+-------------------------------------------------- */
+// Make .navbar-collapse has absolute position on mobile
+.navbar-collapse-absolute {
+  @include media-breakpoint-down(xs) {
+    .nav-link {padding: $navbar-padding-y $navbar-padding-x;}
+  }
+  @include media-breakpoint-down(sm) {
+    z-index: 2;
+    margin-top: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 63px; // Set this with navbar height on mobile
+    background: $black; // Set this with background on mobile
+    .navbar-nav {
+      margin: auto;
+      max-width: 540px;
+    }
+  }
+}
+
+// Make .navbar-collapse has sliding effect on mobile
+@include media-breakpoint-down(sm) {
+  .navbar-collapse-slide {
+    position: fixed;
+    top: 0;
+    width: 80%;
+    max-width: 400px;
+    height: 100%;
+    transition: left .3s ease-in-out;
+    background: $black;
+    box-shadow: $box-shadow-lg;
+    overflow: scroll;
+    z-index: 1032;
+    padding: 15px;
+    &.collapsing {
+      height: 100% !important;
+      transition: left .3s ease-in-out;
+      left: -100%;
+    }
+    &.show {
+      left: 0;
+    }
+  }
+  .navbar-collapse-slide-bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background: rgba($black, .25);
+    left: 0;
+    top: 0;
+    z-index: 1031;
+    display: none;
+  }
+}
+
+// Make where .navbar-brand usually placed in the center
+@include media-breakpoint-up(md) {
+  .navbar-collapse-centered {
+    justify-content: center;
+    .navbar-brand {
+      margin-right: 0;
+      width: 80px; // Specify the width
+    }
+    .navbar-nav-left {
+      width: calc(calc(100% - 80px) / 2);
+      justify-content: flex-end;
+      padding-right: 1.5rem;
+    }
+    .navbar-nav-right {
+      width: calc(calc(100% - 80px) / 2);
+      justify-content: flex-start;
+      padding-left: 1.5rem;
+    }
+  }
+}
+
+// Make where .navbar-brand usually placed in the center
+@include media-breakpoint-up(md) {
+  .navbar-collapse-stacked {
+    flex-direction: column;
+    .navbar-nav-top {
+      justify-content: center;
+      .navbar-brand {
+        margin-right: 0;
+        margin-bottom: .5rem;
+      }
+    }
+    .navbar-nav-bottom {
+      flex-direction: row;
+    }
+  }
+}
